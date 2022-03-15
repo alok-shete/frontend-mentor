@@ -54,12 +54,14 @@
         color: hsl(150, 100%, 66%);
         font-size: 8px;
         letter-spacing: 2px;
+        transition: 0.2s;
       }
 
       .card p:nth-child(2) {
         margin: 20px 10px;
         color: hsl(193, 38%, 86%);
         font-size: 24px;
+        transition: 0.2s;
       }
 
       .card img {
@@ -81,6 +83,7 @@
         justify-content: center;
         align-items: center;
         transition: 0.2s;
+        cursor: pointer;
       }
 
       .dice:hover {
@@ -108,19 +111,25 @@
         <p id="id"></p>
         <p id="advice">Loading...</p>
         <img src="./images/pattern-divider-desktop.svg" alt="" srcset="" />
-        <div class="dice">
+        <div class="dice" onclick="getAdvice()">
           <img src="./images/icon-dice.svg" alt="" srcset="" />
         </div>
       </div>
     </div>
   </body>
   <script>
-    fetch("https://api.adviceslip.com/advice")
-      .then((response) => response.json())
-      .then((res) => {
-        const { id, advice } = res.slip;
-        document.getElementById("id").textContent = `ADVICE #${id}`;
-        document.getElementById("advice").textContent = `${advice}`;
-      });
+    const getAdvice = () => {
+      document.getElementById("id").textContent = ``;
+      document.getElementById("advice").textContent = `Loading...`;
+
+      fetch("https://api.adviceslip.com/advice")
+        .then((response) => response.json())
+        .then((res) => {
+          const { id, advice } = res.slip;
+          document.getElementById("id").textContent = `ADVICE #${id}`;
+          document.getElementById("advice").textContent = `${advice}`;
+        });
+    };
+    getAdvice();
   </script>
 </html>
