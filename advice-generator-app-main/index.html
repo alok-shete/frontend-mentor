@@ -105,11 +105,8 @@
   <body>
     <div class="container">
       <div class="card">
-        <p>ADVICE #117</p>
-        <p>
-          "It is easy to sit up and take notice, what's difficult is getting up
-          and taking action."
-        </p>
+        <p id="id"></p>
+        <p id="advice">Loading...</p>
         <img src="./images/pattern-divider-desktop.svg" alt="" srcset="" />
         <div class="dice">
           <img src="./images/icon-dice.svg" alt="" srcset="" />
@@ -117,4 +114,13 @@
       </div>
     </div>
   </body>
+  <script>
+    fetch("https://api.adviceslip.com/advice")
+      .then((response) => response.json())
+      .then((res) => {
+        const { id, advice } = res.slip;
+        document.getElementById("id").textContent = `ADVICE #${id}`;
+        document.getElementById("advice").textContent = `${advice}`;
+      });
+  </script>
 </html>
